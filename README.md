@@ -8,10 +8,10 @@
 curl https://get.docker.com | sh
 ```
 
-## 1. set password to password.txt file
+## 1. set password to validator
 
 ```bash
-head -1 /dev/urandom | base64 | md5sum | head -c 32 > password.txt
+head -1 /dev/urandom | base64 | md5sum | head -c 32 > validator/password.txt
 ```
 
 ## 2. create new account
