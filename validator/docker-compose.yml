@@ -9,7 +9,7 @@ services:
     ports:
       - 30333:30333
     command: |
-      --networkid 224236
+      --networkid 224
       --syncmode "full"
       --mine
       --miner.etherbase 0x2586d69e9504e679c8e99Cc0Dd6AAeD98160468e
