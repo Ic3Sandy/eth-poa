@@ -1,0 +1,30 @@
+services:
+  rpc:
+    image: ethereum/client-go:v1.11.3
+    restart: always
+    working_dir: /rpc
+    hostname: rpc
+    volumes:
+      - ./:/rpc
+    ports:
+      - 30334:30333
+      - 8545:8545 # HTTP-RPC
+      - 8546:8546 # WebSocket-RPC
+    command: |
+      --networkid 224
+      --syncmode "full"
+      --gcmode "archive"
+      --miner.gasprice 10000000000
+      --miner.gaslimit 40000000
+      --nat extip:139.180.135.227
+      --datadir "node"
+      --nousb
+      --http --http.addr "0.0.0.0" --http.port 8545 --http.corsdomain "*" --http.vhosts "*" --http.api "debug,eth,net,web3,txpool"
+      --ws --ws.addr "0.0.0.0" --ws.port 8546 --ws.origins "*" --ws.api "net,web3,eth"
+      --port 30333
+      --bootnodes ""
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1g"
+        max-file: "1"

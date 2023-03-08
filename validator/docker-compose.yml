@@ -1,0 +1,30 @@
+services:
+  validator:
+    image: ethereum/client-go:v1.11.3
+    restart: always
+    working_dir: /validator
+    hostname: validator
+    volumes:
+      - ./validator:/validator
+      - ./genesis.json:/validator/genesis.json
+    ports:
+      - 30333:30333
+    command: |
+      --networkid 224
+      --syncmode "full"
+      --mine
+      --miner.etherbase 0x7BDf588c98769f556BDBE811167Abd5e042532f0
+      --miner.gasprice 10000000000
+      --miner.gaslimit 40000000
+      --nat extip:139.180.135.227
+      --datadir "node"
+      --nousb
+      --password password.txt
+      --unlock 0x7BDf588c98769f556BDBE811167Abd5e042532f0
+      --port 30333
+      --bootnodes ""
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1g"
+        max-file: "1"
