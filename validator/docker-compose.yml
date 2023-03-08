@@ -9,12 +9,12 @@ services:
     ports:
       - 30333:30333
     command: |
-      --networkid 224
+      --networkid 224236
       --syncmode "full"
       --mine
       --miner.etherbase 0x2586d69e9504e679c8e99Cc0Dd6AAeD98160468e
       --miner.gasprice 10000000000
-      --miner.gaslimit 40000000
+      --miner.gaslimit 800000000
       --nat extip:192.168.1.39
       --datadir "node"
       --nousb
