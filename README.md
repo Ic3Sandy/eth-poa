@@ -1,4 +1,4 @@
-# Deploy Blockchain POA (Validator)
+# Blockchain POA
 
 > networkid 224
 
@@ -11,7 +11,7 @@ curl https://get.docker.com | sh
 ## 1. set password to password.txt file
 
 ```bash
-head -1 /dev/urandom | base64 | md5sum
+head -1 /dev/urandom | base64 | md5sum | head -c 32 > password.txt
 ```
 
 ## 2. create new account
@@ -20,11 +20,15 @@ head -1 /dev/urandom | base64 | md5sum
 cd validator
 ```
 
+Run this command to create new account and replace the address in genesis.json file and docker-compose.yml file
+
 ```bash
 docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 --datadir /validator/node --password password.txt account new
 ```
 
 ## 3. init-genesis Validator
+
+Check genesis.json file is correct and init genesis
 
 ```bash
 docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 --datadir /validator/node --nousb init genesis.json
@@ -33,8 +37,8 @@ docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 
 ## 4. deploy
 
 ```bash
-docker compose up -d validator
-docker compose logs -f validator
+docker compose up -d
+docker compose logs -f
 ```
 
 ## 5. JavaScript Console
