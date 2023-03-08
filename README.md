@@ -125,6 +125,10 @@ Use version `v4.1.8-beta`
 
 ```bash
 git clone https://github.com/blockscout/blockscout.git -b v4.1.8-beta
+
+# or
+
+wget https://github.com/blockscout/blockscout/archive/refs/tags/v4.1.8-beta.zip
 ```
 
 ## 1. Update env file
