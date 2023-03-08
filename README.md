@@ -118,3 +118,41 @@ docker run --rm -it -v $PWD:/rpc -w /rpc ethereum/client-go:v1.11.3 --datadir /r
 docker compose up -d
 docker compose logs -f
 ```
+
+## Blockscout
+
+Use version `v4.1.8-beta`
+
+```bash
+git clone https://github.com/blockscout/blockscout.git -b v4.1.8-beta
+```
+
+## 1. Update env file
+
+```bash
+# docker-compose/envs/common-blockscout.env
+
+NETWORK=NEXT
+SUBNETWORK=Testnet
+SECRET_KEY_BASE=56NtB48ear7+wMSf0IQuWDAAazhpb31qyc7GiyspBP2vh7t5zlCsF5QDv76chXeN # for testing only
+BLOCK_TRANSFORMER=clique
+```
+
+## 2. Update .po file
+
+```bash
+# apps/block_scout_web/priv/gettext/en/LC_MESSAGES/default.po
+msgid "Ether"
+msgstr "NEXT"
+
+msgid "ETH"
+msgstr "NEXT"
+```
+
+## 3. Build docker
+
+```bash
+cd docker-compose
+
+docker compose up --build
+```
