@@ -46,3 +46,14 @@ down-validator:
 
 down-rpc:
 	docker compose -f rpc/docker-compose.yml down -v
+
+attach-validator:
+	docker compose -f validator/docker-compose.yml exec validator geth --datadir /validator/node attach
+
+attach-rpc:
+	docker compose -f rpc/docker-compose.yml exec rpc geth --datadir /rpc/node attach
+
+removedb-validator:
+	docker run --rm -it -v $(PWD)/validator:/validator -w /validator ethereum/client-go:v1.11.3 --datadir /validator/node --nousb removedb
+
+down-all: down-validator down-rpc down-blockscout

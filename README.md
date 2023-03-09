@@ -35,7 +35,7 @@ make start-validator
 > <https://geth.ethereum.org/docs/rpc/server>
 
 ```bash
-docker compose -f validator/docker-compose.yml exec validator geth --datadir /validator/node attach
+make attach-validator
 ```
 
 |                   | Command                                                                |
@@ -53,33 +53,33 @@ docker compose -f validator/docker-compose.yml exec validator geth --datadir /va
 command-line for get enode
 
 ```bash
-docker compose exec validator geth --datadir /validator/node attach --exec 'admin.nodeInfo'
+docker compose -f validator/docker-compose.yml exec validator geth --datadir /validator/node attach --exec 'admin.nodeInfo'
 ```
 
 command-line for add validator
 
 ```bash
-docker compose exec validator geth --datadir /validator/node attach --exec 'clique.propose("0x048F519b032bAfa19Cf28D0cbf717a5fd119fA7A", true)'
+docker compose -f validator/docker-compose.yml exec validator geth --datadir /validator/node attach --exec 'clique.propose("0x048F519b032bAfa19Cf28D0cbf717a5fd119fA7A", true)'
 ```
 
 command-line for check validator
 
 ```bash
-docker compose exec validator geth --datadir /validator/node attach --exec 'clique.getSigners()'
+docker compose -f validator/docker-compose.yml exec validator geth --datadir /validator/node attach --exec 'clique.getSigners()'
 ```
 
 ## If you want to reset the data in order to perform a new join
 
-## 7. Removedb
+## Removedb
 
 ```bash
-docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 --datadir /validator/node --nousb removedb
+make removedb-validator
 ```
 
 And please re-initiate the genesis before deploying again.
 
 ```bash
-docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 --datadir /validator/node --nousb init genesis.json
+make init-genesis-validator
 ```
 
 ## Start RPC
@@ -153,4 +153,36 @@ msgstr "NEXT"
 
 ```bash
 make build-blockscout
+```
+
+## 4. Start Blockscout
+
+```bash
+make start-blockscout
+```
+
+### Down Services
+
+- Validator
+
+```bash
+make down-validator
+```
+
+- RPC
+
+```bash
+make down-rpc
+```
+
+- Blockscout
+
+```bash
+make down-blockscout
+```
+
+- All
+
+```bash
+make down-all
 ```
