@@ -12,14 +12,14 @@ services:
       --networkid 224
       --syncmode "full"
       --mine
-      --miner.etherbase 0x2586d69e9504e679c8e99Cc0Dd6AAeD98160468e
-      --miner.gasprice 10000000000
+      --miner.etherbase 0xAEc0F742161064E6290f3CE213205993D8A0A1B1
+      --miner.gasprice 1000000
       --miner.gaslimit 800000000
       --nat extip:192.168.1.39
       --datadir "node"
       --nousb
       --password password.txt
-      --unlock 0x2586d69e9504e679c8e99Cc0Dd6AAeD98160468e
+      --unlock 0xAEc0F742161064E6290f3CE213205993D8A0A1B1
       --port 30333
       --bootnodes ""
     logging:

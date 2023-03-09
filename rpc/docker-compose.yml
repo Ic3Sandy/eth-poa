@@ -11,10 +11,10 @@ services:
       - 8545:8545 # HTTP-RPC
       - 8546:8546 # WebSocket-RPC
     command: |
-      --networkid 224236
+      --networkid 224
       --syncmode "full"
       --gcmode "archive"
-      --miner.gasprice 10000000000
+      --miner.gasprice 1000000
       --miner.gaslimit 800000000
       --nat extip:192.168.1.39
       --datadir "node"
@@ -22,7 +22,7 @@ services:
       --http --http.addr "0.0.0.0" --http.port 8545 --http.corsdomain "*" --http.vhosts "*" --http.api "debug,eth,net,web3,txpool"
       --ws --ws.addr "0.0.0.0" --ws.port 8546 --ws.origins "*" --ws.api "net,web3,eth"
       --port 30334
-      --bootnodes "enode://396058b9c2a1517e2fec5f4fd8af06d8bd1e7904ca2d70b0f968f62d03f97a22d6b70f88e6e827d1081b4839b743b9dd579248ac83109f04a80c3682a8725243@192.168.1.39:30333"
+      --bootnodes "enode://57838ad65d93055d34b0975b6c3280deb2c150d6d36fe30b2ffce75291402913915a55a777ce67bd8060a23166020b5ce6d003d7bae33a166a7ea632d11f79ef@192.168.1.39:30333"
     logging:
       driver: "json-file"
       options:

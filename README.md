@@ -8,46 +8,34 @@
 curl https://get.docker.com | sh
 ```
 
-## 1. set password to validator
+## 1. create new account
+
+Use address from output to replace in genesis.json in extradata
 
 ```bash
-head -1 /dev/urandom | base64 | md5sum | head -c 32 > validator/password.txt
+make new-account
 ```
 
-## 2. create new account
-
-```bash
-cd validator
-```
-
-Run this command to create new account and replace the address in genesis.json file and docker-compose.yml file
-
-```bash
-docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 --datadir /validator/node --password password.txt account new
-```
-
-## 3. init-genesis Validator
+## 2. init-genesis Validator
 
 Check genesis.json file is correct and init genesis
 
 ```bash
-docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 --datadir /validator/node --nousb init genesis.json
+make init-genesis-validator
 ```
 
-## 4. deploy
+## 3. Start Validator
 
 ```bash
-docker compose up -d
-docker compose logs -f
+docker start-validator
 ```
 
-## 5. JavaScript Console
+## JavaScript Console
 
 > <https://geth.ethereum.org/docs/rpc/server>
 
 ```bash
-docker compose exec validator sh
-geth --datadir /validator/node attach
+docker compose -f validator/docker-compose.yml exec validator geth --datadir /validator/node attach
 ```
 
 |                   | Command                                                                |
@@ -99,24 +87,23 @@ docker run --rm -it -v $PWD:/validator -w /validator ethereum/client-go:v1.11.3 
 ## 1. Check genesis.json file is correct and init genesis
 
 ```bash
-cd rpc
-```
-
-```bash
-docker run --rm -it -v $PWD:/rpc -w /rpc ethereum/client-go:v1.11.3 --datadir /rpc/node --nousb init genesis.json
+make init-genesis-rpc
 ```
 
 ## 2. Add bootnode in docker-compose by get from enode of validator
 
 ```bash
+make get-enode-validator
+
+# and
+
 --bootnodes ""
 ```
 
-## 3. deploy
+## 3. Start RPC
 
 ```bash
-docker compose up -d
-docker compose logs -f
+make start-rpc
 ```
 
 ## Blockscout
@@ -124,11 +111,20 @@ docker compose logs -f
 Use version `v4.1.8-beta`
 
 ```bash
-git clone https://github.com/blockscout/blockscout.git -b v4.1.8-beta
-
-# or
-
 wget https://github.com/blockscout/blockscout/archive/refs/tags/v4.1.8-beta.zip
+```
+
+If you want to change logo or theme
+
+```bash
+cp logo.png blockscout/apps/block_scout_web/assets/static/images/.
+```
+
+```scss
+# apps/block_scout_web/assets/css/theme/_variables.scss
+@import "base_variables";
+// @import "neutral_variables";
+@import "poa_variables";
 ```
 
 ## 1. Update env file
@@ -156,7 +152,5 @@ msgstr "NEXT"
 ## 3. Build docker
 
 ```bash
-cd docker-compose
-
-docker compose up --build
+make build-blockscout
 ```

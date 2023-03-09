@@ -1,2 +1,5 @@
 password.txt
 node
+pg-data
+blockscout-*
+*.zip
