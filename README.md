@@ -13,7 +13,7 @@ curl https://get.docker.com | sh
 Use address from output to replace in genesis.json in extradata
 
 ```bash
-make new-account
+make new-acc
 ```
 
 ## 2. init-genesis Validator
@@ -27,7 +27,7 @@ make init-genesis-validator
 ## 3. Start Validator
 
 ```bash
-docker start-validator
+make start-validator
 ```
 
 ## JavaScript Console
